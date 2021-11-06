@@ -1,6 +1,5 @@
 import { Badge } from '@mui/material';
 import styled from 'styled-components'
-import logo from '../img/logo.png';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { ShoppingCart } from '@mui/icons-material'
@@ -41,7 +40,7 @@ const Navbar = () => {
         <Container>
             <Left>
                 <Link to='/'>
-                <img style={{maxHeight: '4.5rem'}} src={logo} alt='logo'/>
+                <img style={{maxHeight: '4.5rem'}} src='https://lh3.googleusercontent.com/pw/AM-JKLW27Jt74wfakIvasrPpkfKPyCJEmR-Zp5-Sz_g8DR1BIUcWDOVSqTulcaQaoyqxmHfKHgYpz8EZygycq7G_AnW8xfwVmcHoUwEyoBw_cjYcmMTmNcexY8LHlltgkl9XXbd-VTzYPpyA6oj9jP_RdPzEWg=w402-h621-no?authuser=0' alt='logo'/>
                 </Link>
             </Left>
             <Center>
