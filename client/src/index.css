@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap");
+@font-face {
+  font-family: 'Corsiva';
+  src: url(./fonts/corsiva.ttf);
+}
+* {
+  font-family: 'Averia Serif Libre';
+  margin: 0;
+  box-sizing: border-box;
+}
+html{
+  background-color: #252525;
+}
+h1, a {
+  font-family: 'Corsiva';
+}
+.cartHover{
+  cursor: pointer;
+}
+.cartHover:hover {
+  transform: scale(1.2);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:focus, a:visited {
+  font-weight: bold;
+  color: #0d0d0d;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.pointer:hover {
+  transform: scale(1.1);
+}
+.react-datepicker__time-list-item--disabled {
+  display: none;
+} 
+
+.react-datepicker__header {
+  height: 4.5rem;
+} 
+.react-datepicker__header--time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.react-datepicker__input-container > input {
+  padding: 1rem;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
