@@ -9,6 +9,7 @@ import ProductPage from './pages/ProductPage';
 import CustomerPage from './pages/CustomerPage';
 import PaymentPage from './pages/PaymentPage';
 import Success from './pages/SuccessPage';
+import Failed from './pages/FailedPage';
 
 const theme = createTheme({
   palette: {
@@ -42,6 +43,7 @@ function App() {
           <Route path='/customer' element={<CustomerPage/>}/>
           <Route path='/payment' element={<PaymentPage/>}/>
           <Route path='/success' element={<Success/>}/>
+          <Route path='/failed' element={<Failed/>}/>
           <Route path='*' element={<Home/>}/>
       </Routes>
       </Router>

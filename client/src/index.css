@@ -45,17 +45,10 @@ a:focus, a:visited {
   display: none;
 } 
 
-.react-datepicker__header {
-  height: 4.5rem;
-} 
-.react-datepicker__header--time {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 .react-datepicker__input-container > input {
   padding: 1rem;
-  font-size: 1.5em;
+  font-size: 1rem;
   text-align: center;
 }
 
@@ -63,4 +56,21 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+.custom-input {
+  border: none;
+    background: #7c0f3c;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 auto;
+    border-radius: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: 8rem;
+}
+
+.custom-input:hover {
+    opacity: .5;
 }

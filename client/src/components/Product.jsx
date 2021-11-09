@@ -116,8 +116,10 @@ const Product = () => {
     const [product, setProduct] = useState({});
     const [display, setDisplay] = useState('none');
     const [icingDisplay, setIcingDisplay] = useState('none');
+    const [sizeDisplay, setSizeDisplay] = useState('none');
     const [flavor, setFlavor] = useState('');
     const [icing, setIcing] = useState('');
+    const [size, setSize] = useState('');
     const [quantity, setQuantity] = useState(id === '61859a886c934dfa2e3aa9c5' ? 6 : 1);
     const itemId = useSelector(state => state.itemID);
 
@@ -142,12 +144,28 @@ const Product = () => {
                 } else {
                     setIcingDisplay('none')
                 }
+                if (res.data.sizes.length > 0) {
+                    setSizeDisplay('grid')
+                } else {
+                    setSizeDisplay('none')
+                }
             } catch (error) {
                 console.log(error)
             }
         }
         getProduct();
-    })
+        // eslint-disable-next-line
+    }, [])
+
+ 
+        if (size === '9-inch Round') {
+            product.price = 25;
+        } else if (size === 'Full Pan') {
+            product.price = 65;
+        } else if (size === '9x13') {
+            product.price = 35;
+        }
+   
 
     const handleQuantity = (type) => {
         if (type === 'dec') {
@@ -162,13 +180,21 @@ const Product = () => {
     };
 
     const handleClick = () => {
-        if(product.flavors.length) {
-            if (flavor) {
-            dispatch(addProduct({product: {description: product.title+' ('+flavor+' '+icing+')', quantity, amount: product.price*100, id: itemId}, quantity, price: product.price*quantity}));
+        if (product.flavors.length) {
+            if (icing) {
+                dispatch(addProduct({product: {description: product.title+' ('+flavor+' / '+icing+')', quantity, amount: product.price*100, id: itemId}, quantity, price: product.price*quantity}));
+            } else if (flavor) {
+                dispatch(addProduct({product: {description: product.title+' ('+flavor+')', quantity, amount: product.price*100, id: itemId}, quantity, price: product.price*quantity}));
             } else {
                 alert('Please choose a flavor')
             }
-        } else{
+        } else if (product.sizes) {
+            if (size) {
+                dispatch(addProduct({product: {description: product.title+' ('+size+')', quantity, amount: product.price*100, id: itemId}, quantity, price: product.price*quantity}));
+            } else {
+                alert('Please choose a size')
+            }
+        } else {
             dispatch(addProduct({product: {description: product.title, quantity, amount: product.price*100, id: itemId}, quantity, price: product.price*quantity}));
         }
         dispatch(increaseID());
@@ -179,9 +205,9 @@ const Product = () => {
             <InfoContainer>
                 <Title>{product.title}</Title>
                 <Description>{product.desc}</Description>
-                <Selections style={{display: display}}> 
-                    <SelectTitle for='flavor'>Flavor</SelectTitle>
-                    <Select name='flavor' onChange={(e) => setFlavor(e.target.value)}>
+                <Selections> 
+                    <SelectTitle style={{display: display}} for='flavor'>Flavor</SelectTitle>
+                    <Select style={{display: display}} name='flavor' onChange={(e) => setFlavor(e.target.value)}>
                         <option selected disabled>Choose Flavor</option>
                         {product.flavors?.map((flavor) => (
                             <option value={flavor} key={flavor}>{flavor}</option>
@@ -193,6 +219,14 @@ const Product = () => {
                 <option selected disabled>Choose Icing</option>
                 {product.icing?.map((flavor) => (
                     <option value={flavor} key={flavor}>{flavor}</option>
+                    ))
+                }
+                </Select>
+                <SelectTitle style={{display: sizeDisplay}} for='size'>Size</SelectTitle>
+                <Select style={{display: sizeDisplay}} name='size' onChange={(e) => setSize(e.target.value)}>
+                <option selected disabled>Choose Size</option>
+                {product.sizes?.map((size) => (
+                    <option value={size} key={size}>{size}</option>
                     ))
                 }
                 </Select>

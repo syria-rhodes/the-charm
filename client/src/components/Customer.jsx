@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, forwardRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
@@ -23,7 +23,6 @@ const DateContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 1em;
-    margin-top: 2em;
     flex-direction: column;
 `
 
@@ -91,15 +90,27 @@ const Customer = () => {
 
     const [startDate, setStartDate] = useState(null);
     const [startTime, setStartTime] = useState(null);
+    const DateInput = forwardRef(({ value, onClick }, ref) => (
+        <button className="custom-input" onClick={onClick} ref={ref}>
+          {value || 'Select a Date'}
+        </button>
+    ));
+    const TimeInput = forwardRef(({ value, onClick }, ref) => (
+        <button className="custom-input" onClick={onClick} ref={ref}>
+          {value || 'Select a Time'}
+        </button>
+    ));
+    
     
     const DateSelector = () => {
 
         const workingDays = (date) => {
             const day = getDay(date);
             return day !== 1 && day !== 0;
-          };
+        };
 
         return (
+            <>
             <div>
           <DatePicker  
           required
@@ -112,7 +123,10 @@ const Customer = () => {
           maxDate={addDays(new Date(), 24)}
           excludeDates={holiday}
           dateFormat="MM/dd/yyyy"
+          customInput={<DateInput />}
           />
+          </div>
+          <div>
           <DatePicker
           includeTimes={[
               setHours(setMinutes(new Date(), 0), 10),
@@ -133,8 +147,11 @@ const Customer = () => {
             timeIntervals={15}
             timeCaption="Time"
             dateFormat="h:mm aa"
+            customInput={<TimeInput />}
+            withPortal
             />
             </div>
+            </>
           );        
       };
      
@@ -166,9 +183,8 @@ const Customer = () => {
 
     return (
         <Container>
-            <h2 style={{textAlign: 'center'}}>Step 2: Choose and Pickup Date and Enter Information</h2>
+            <h2 style={{textAlign: 'center'}}>Step 2: Choose a Pickup Date and Enter Information</h2>
             <DateContainer>
-                <h2 style={{textAlign: 'center', margin: '1rem 0 0'}}>Choose a Pickup Date and Time</h2>
                 <DateSelector/>
                 <h3 style={{textAlign: 'center', margin: '1rem 0 0'}}>For orders outside of the available dates, please email Terri at terridoesdesserts@gmail.com</h3>
             </DateContainer>
